@@ -19,20 +19,23 @@ func main() {
 	for _, branch := range branches {
 
 		if strings.HasPrefix(branch, "*") {
-			currentBranch = strings.TrimPrefix(branch, "*")
+			currentBranch = strings.TrimSpace(strings.TrimPrefix(branch, "*"))
 			break
 		}
 
 	}
-
-	// executablePath := fmt.Sprintf("push -u origin %s", currentBranch)
-
-	push, err := exec.Command("git", "push", "-u", "origin", currentBranch).Output()
+	push := exec.Command("git", "push", "-u", "origin", currentBranch)
+	output, err := push.CombinedOutput() // Capture both stdout and stderr
 
 	if err != nil {
-		log.Fatal("falied", err)
+		if exitError, ok := err.(*exec.ExitError); ok {
+			// Handle specific exit codes if needed
+			log.Fatalf("git push failed with exit code %d: %s", exitError.ExitCode(), output)
+		} else {
+			log.Fatalf("git push failed: %s", err)
+		}
 	}
 
-	fmt.Println("xcxcx", push)
+	fmt.Println(string(output))
 
 }
