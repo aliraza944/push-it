@@ -1,4 +1,4 @@
-**push-it** is a simple command-line tool written in Go that streamlines the process of pushing your code to the origin repository. Instead of manually typing git push -u origin <your-branch>, you can simply execute push-it to accomplish the same task.
+**push-it** is a simple command-line tool written in Go that streamlines the process of pushing your code to the origin repository. Instead of manually typing git push -u origin **[your-branch]**, you can simply execute push-it to accomplish the same task.
 
 ## you can install it by running the following command:
 
